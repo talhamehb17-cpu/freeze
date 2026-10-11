@@ -1,0 +1,447 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   TAHSEEN JABER COLD STORAGE & LOGISTICS
+   Design system — "The cold chain comes alive."
+   ========================================================================== */
+
+@theme {
+  /* ---- Brand palette (derived from the TJ ice-crystal mark) ------------- */
+  --color-midnight: #050914;
+  --color-abyss: #03060e;
+  --color-navy: #081426;
+  --color-slate-900tj: #0d1a2c;
+  --color-industrial: #152235;
+  --color-steel: #1e2f47;
+  --color-ice: #7dd3fc;
+  --color-cyan-core: #22d3ee;
+  --color-frost: #f4faff;
+  --color-silver: #a7b4c5;
+  --color-mist: #6b7f99;
+  --color-cool: #22c55e;
+  --color-amber-tj: #f59e0b;
+  --color-danger: #ef4444;
+  --color-violet-cold: #8b9dff;
+
+  /* ---- Typography -------------------------------------------------------- */
+  --font-display: "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace;
+
+  /* ---- Motion (one easing language for the whole product) --------------- */
+  --ease-frost: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-cryo: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-drift: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---- Radii ------------------------------------------------------------- */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.75rem;
+
+  /* ---- Keyframes exposed as utilities ----------------------------------- */
+  --animate-drift-slow: drift 38s linear infinite;
+  --animate-mist: mist 26s ease-in-out infinite;
+  --animate-scanline: scanline 5.5s linear infinite;
+  --animate-pulse-ring: pulse-ring 2.8s var(--ease-frost) infinite;
+  --animate-frost-bloom: frost-bloom 1.4s var(--ease-frost) forwards;
+  --animate-shimmer: shimmer 3.4s linear infinite;
+  --animate-flicker: flicker 6s steps(1, end) infinite;
+  --animate-sweep: sweep 6s var(--ease-frost) infinite;
+  --animate-breathe: breathe 7s ease-in-out infinite;
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-spin-slow: spin 22s linear infinite;
+  --animate-blink: blink 1.15s steps(2, start) infinite;
+  --animate-dash: dash 2.4s linear infinite;
+  --animate-float-y: float-y 9s ease-in-out infinite;
+}
+
+@keyframes drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes mist {
+  0%, 100% { transform: translate3d(-4%, 0, 0) scaleX(1); opacity: 0.42; }
+  50% { transform: translate3d(4%, -1.5%, 0) scaleX(1.12); opacity: 0.66; }
+}
+@keyframes scanline {
+  0% { transform: translateY(-110%); opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { transform: translateY(1100%); opacity: 0; }
+}
+@keyframes pulse-ring {
+  0% { transform: scale(0.82); opacity: 0.7; }
+  70% { transform: scale(1.5); opacity: 0; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+@keyframes frost-bloom {
+  from { opacity: 0; transform: scale(0.9); filter: blur(6px); }
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+@keyframes shimmer {
+  0% { background-position: -180% 0; }
+  100% { background-position: 180% 0; }
+}
+@keyframes flicker {
+  0%, 92%, 100% { opacity: 1; }
+  93% { opacity: 0.62; }
+  94% { opacity: 1; }
+  96% { opacity: 0.78; }
+  97% { opacity: 1; }
+}
+@keyframes sweep {
+  0% { transform: translateX(-120%) skewX(-16deg); }
+  55%, 100% { transform: translateX(320%) skewX(-16deg); }
+}
+@keyframes breathe {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+@keyframes dash {
+  to { stroke-dashoffset: -24; }
+}
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes wheel-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes ice-crack {
+  0% { stroke-dashoffset: var(--len, 400); opacity: 0; }
+  12% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+@keyframes scan-bar {
+  0% { transform: translateX(-8%); }
+  50% { transform: translateX(108%); }
+  100% { transform: translateX(-8%); }
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --vh: 1vh;
+    --cursor-size: 8px;
+  }
+
+  * {
+    border-color: color-mix(in oklab, var(--color-ice) 12%, transparent);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    background-color: var(--color-midnight);
+    color: var(--color-frost);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 0.94;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-cyan-core) 45%, transparent);
+    color: var(--color-frost);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-cyan-core);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  /* Custom cold scrollbar */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-abyss); }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #1e2f47, #152235);
+    border-radius: 99px;
+    border: 2px solid var(--color-abyss);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--color-cyan-core), #155e75);
+  }
+
+  input, select, textarea, button { font: inherit; color: inherit; }
+
+  /* Hide native cursor only where the custom one is active */
+  body[data-cursor="on"] a,
+  body[data-cursor="on"] button,
+  body[data-cursor="on"] [role="button"],
+  body[data-cursor="on"] input,
+  body[data-cursor="on"] textarea,
+  body[data-cursor="on"] select,
+  body[data-cursor="on"] label {
+    cursor: none;
+  }
+  body[data-cursor="on"] { cursor: none; }
+}
+
+/* ==========================================================================
+   COMPONENT UTILITIES
+   ========================================================================== */
+
+@utility panel {
+  position: relative;
+  border-radius: var(--radius-lg);
+  border: 1px solid color-mix(in oklab, var(--color-ice) 14%, transparent);
+  background:
+    linear-gradient(180deg,
+      color-mix(in oklab, var(--color-industrial) 72%, transparent),
+      color-mix(in oklab, var(--color-navy) 88%, transparent));
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--color-frost) 8%, transparent),
+    0 24px 60px -30px rgb(0 0 0 / 0.9);
+}
+
+@utility panel-hud {
+  position: relative;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in oklab, var(--color-cyan-core) 22%, transparent);
+  background:
+    linear-gradient(180deg, rgb(8 20 38 / 0.92), rgb(5 9 20 / 0.96));
+  box-shadow:
+    inset 0 0 24px -12px color-mix(in oklab, var(--color-cyan-core) 55%, transparent),
+    0 18px 44px -26px rgb(0 0 0 / 0.95);
+}
+
+@utility hud-grid {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--color-ice) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--color-ice) 7%, transparent) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+@utility hud-grid-fine {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--color-ice) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--color-ice) 5%, transparent) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+@utility hairline {
+  background-image: linear-gradient(90deg,
+    transparent,
+    color-mix(in oklab, var(--color-ice) 42%, transparent),
+    transparent);
+}
+
+@utility text-outline {
+  /* Editorial outlined word — the accent line in a masked headline. */
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(125, 211, 252, 0.42);
+  text-stroke: 1px rgba(125, 211, 252, 0.42);
+
+  @media (prefers-reduced-motion: reduce) {
+    -webkit-text-stroke-width: 1px;
+  }
+}
+
+@utility text-gradient-frost {
+  background-image: linear-gradient(178deg, #ffffff 4%, #cfe9ff 38%, #7dd3fc 72%, #38bdf8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility text-gradient-steel {
+  background-image: linear-gradient(180deg, #e6eefb 0%, #a7b4c5 58%, #5d6f86 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility glow-cyan {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--color-cyan-core) 40%, transparent),
+    0 0 22px -6px color-mix(in oklab, var(--color-cyan-core) 70%, transparent),
+    0 0 60px -22px color-mix(in oklab, var(--color-ice) 60%, transparent);
+}
+
+@utility glow-soft {
+  box-shadow: 0 0 42px -18px color-mix(in oklab, var(--color-cyan-core) 65%, transparent);
+}
+
+@utility frost-surface {
+  background-image:
+    radial-gradient(120% 90% at 50% 0%, color-mix(in oklab, var(--color-ice) 12%, transparent), transparent 62%),
+    linear-gradient(180deg, rgb(21 34 53 / 0.55), rgb(5 9 20 / 0.8));
+  backdrop-filter: blur(14px) saturate(130%);
+}
+
+@utility tracking-mega {
+  letter-spacing: 0.42em;
+}
+
+@utility tracking-hud {
+  letter-spacing: 0.22em;
+}
+
+@utility edge-fade {
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+@utility clip-notch {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+}
+
+@utility clip-tag {
+  clip-path: polygon(0 0, 100% 0, calc(100% - 9px) 100%, 0 100%);
+}
+
+/* ---- Mask reveal (used by the text engine) ------------------------------- */
+.mask-line { display: block; overflow: hidden; }
+.mask-line > span {
+  display: block;
+  transform: translateY(105%);
+  will-change: transform;
+}
+.mask-line.is-in > span {
+  transform: translateY(0);
+  transition: transform 1.05s var(--ease-frost);
+}
+
+/* ---- Frost / freeze effects --------------------------------------------- */
+.frost-glass {
+  position: relative;
+  isolation: isolate;
+}
+.frost-glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image:
+    radial-gradient(60% 45% at 12% 8%, rgb(244 250 255 / 0.16), transparent 70%),
+    radial-gradient(48% 40% at 88% 92%, rgb(125 211 252 / 0.14), transparent 70%);
+  mix-blend-mode: screen;
+  opacity: 0.7;
+}
+
+.freeze-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  background:
+    radial-gradient(120% 100% at 50% 50%, transparent 42%, rgb(125 211 252 / 0.14) 78%, rgb(244 250 255 / 0.3) 100%);
+  opacity: 0;
+  transition: opacity 700ms var(--ease-frost);
+}
+
+.ice-crackle path,
+.ice-crackle line {
+  stroke-dasharray: var(--len, 400);
+  stroke-dashoffset: var(--len, 400);
+  animation: ice-crack 1.5s var(--ease-frost) forwards;
+}
+
+/* ---- Film grain / noise -------------------------------------------------- */
+.noise-layer {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* ---- Shimmer sweep on buttons ------------------------------------------- */
+.sweep-host { position: relative; overflow: hidden; isolation: isolate; }
+.sweep-host::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg, transparent 20%, rgb(244 250 255 / 0.28) 48%, transparent 72%);
+  transform: translateX(-120%) skewX(-16deg);
+  pointer-events: none;
+}
+.sweep-host:hover::before { animation: sweep 1.15s var(--ease-frost); }
+
+/* ---- Scanline overlay for HUD panels ------------------------------------ */
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgb(125 211 252 / 0.045) 0px,
+    rgb(125 211 252 / 0.045) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  mix-blend-mode: overlay;
+}
+
+/* ---- Marquee ------------------------------------------------------------- */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: var(--animate-marquee);
+}
+.marquee-host:hover .marquee-track { animation-play-state: paused; }
+
+/* ---- Barcode scan bar ---------------------------------------------------- */
+.scan-bar { animation: scan-bar 2.6s var(--ease-cryo) infinite; }
+
+/* ---- Truck wheels -------------------------------------------------------- */
+.wheel-spin { animation: wheel-spin 0.7s linear infinite; transform-origin: center; transform-box: fill-box; }
+
+/* ---- Number tickers ------------------------------------------------------ */
+.tabular { font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+
+/* ==========================================================================
+   REDUCED MOTION — the whole system must degrade gracefully
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .mask-line > span { transform: none !important; }
+  .marquee-track { animation: none !important; transform: none !important; }
+  .wheel-spin { animation: none !important; }
+  .scan-bar { animation: none !important; transform: translateX(45%) !important; }
+  .sweep-host::before { display: none; }
+  .noise-layer { opacity: 0.02 !important; }
+}
